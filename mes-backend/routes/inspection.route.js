@@ -4,8 +4,8 @@ const inspectionController = require("../controllers/inspection.controller");
 
 router.get("/", inspectionController.getAllInspections);
 router.get("/:inspectionId", inspectionController.getOneInspection);
-// router.post("/", inspectionController.login);
-// router.put("/:inspectionId", inspectionController.login);
-// router.delete("/:inspectionId", inspectionController.login);
+router.post("/", inspectionController.createOneInspection);
+router.put("/:inspectionId", inspectionController.updateOneInspection);
+router.delete("/:inspectionId", inspectionController.deleteOneInspection);
 
 module.exports = router;

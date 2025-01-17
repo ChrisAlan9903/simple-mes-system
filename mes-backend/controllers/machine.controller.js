@@ -1,5 +1,14 @@
+const pool = require("../config/db.config");
+const queries = require("../db/machine.queries");
+
 function getAllMachines(req, res) {
-  res.status(200).json("Get All Machines");
+  pool.query(queries.getAllMachineUtilizations, (error, results) => {
+    if (error) {
+      throw error;
+    }
+
+    res.status(200).json(results.rows);
+  });
 }
 
 function getOneMachine(req, res) {
