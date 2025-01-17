@@ -10,9 +10,9 @@ const inspectionRoute = require("./routes/inspection.route");
 // Middleware
 app.use(express.json());
 
-app.use("/production", productionRoute);
-app.use("/machine", machineRoute);
-app.use("/inspection", inspectionRoute);
+app.use("/productions", productionRoute);
+app.use("/machines", machineRoute);
+app.use("/inspections", inspectionRoute);
 
 app.get("/", (req, res) => {
   res.status(200).send("Health OK");
