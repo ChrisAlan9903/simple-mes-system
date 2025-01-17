@@ -1,8 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BaseButton from "../components/base-button";
 import { useRouter } from "next/navigation";
+import { Production } from "@/interface/production";
+import { getProductions } from "@/services/production.service";
+import moment from "moment";
 
 const ProductionTrackingPage = () => {
   const router = useRouter();
@@ -114,6 +117,21 @@ const ProductionTrackingPage = () => {
     router.push(`/production-tracking/${id}`);
   }
 
+  const [production, setProduction] = useState<Production[]>();
+
+  async function initProduction() {
+    try {
+      const res = await getProductions();
+      setProduction(res);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    initProduction();
+  }, []);
+
   return (
     <div className="w-full">
       <div className="text-3xl font-bold mt-5 mb-8">Production Tracking</div>
@@ -127,13 +145,14 @@ const ProductionTrackingPage = () => {
         </BaseButton>
       </div>
       <ListingHeader header={header} />
-      {listingItem.map((item, index) => (
-        <ListingItem
-          key={index}
-          item={item}
-          onClick={(id) => handleRedirect(id)}
-        />
-      ))}
+      {production &&
+        production.map((item, index) => (
+          <ListingItem
+            key={index}
+            item={item}
+            onClick={(id) => handleRedirect(id)}
+          />
+        ))}
     </div>
   );
 };
@@ -162,28 +181,59 @@ const ListingHeader = ({ header }: ListingHeaderProps) => {
 };
 
 interface ListingItemProps {
-  item: {
-    productionId: number;
-    productionName: string;
-    productionStatus: string;
-    productionDateAndTime: string;
-    productionQuantity: number;
-  };
+  item: Production;
   onClick: (id: number) => void;
 }
 
 const ListingItem = ({ item, onClick }: ListingItemProps) => {
+  const mapProductionStatus = (status: string) => {
+    switch (status) {
+      case "planned":
+        return (
+          <span className="px-3 py-2 bg-blue-600 text-white font-medium text-xs rounded-2xl">
+            PLANNED
+          </span>
+        );
+      case "in_progress":
+        return (
+          <span className="px-3 py-2 bg-orange-400 text-white font-medium text-xs rounded-2xl">
+            IN PROGRESS
+          </span>
+        );
+      case "cancelled":
+        return (
+          <span className="px-3 py-2 bg-red-600 text-white font-medium text-xs rounded-2xl">
+            CANCELLED
+          </span>
+        );
+      case "completed":
+        return (
+          <span className="px-3 py-2 bg-green-600 text-white font-medium text-xs rounded-2xl">
+            COMPLETED
+          </span>
+        );
+      default:
+        return (
+          <span className="px-3 py-2 bg-slate-600 text-white font-medium text-xs rounded-2xl">
+            UNDEFINED
+          </span>
+        );
+    }
+  };
+
   return (
     <div
-      onClick={() => onClick(item.productionId)}
+      onClick={() => onClick(item.id)}
       className="w-full h-16 flex justify-between items-center border-b-2 border-slate-400 cursor-pointer hover:bg-slate-200 transition-all duration-300"
     >
-      <div className="pl-4 flex-[0.5]">{item.productionId}</div>
-      <div className="pl-4 flex-1">{item.productionName}</div>
-      <div className="pl-4 flex-1">{item.productionStatus}</div>
-      <div className="pl-4 flex-1">{item.productionDateAndTime}</div>
+      <div className="pl-4 flex-[0.5]">{item.id || "-"}</div>
+      <div className="pl-4 flex-1">{item.product_name || "-"}</div>
+      <div className="pl-4 flex-1">{mapProductionStatus(item.status)}</div>
+      <div className="pl-4 flex-1">
+        {moment(item.start_date).format("DD MMMM YYYY h:mm A") || "-"}
+      </div>
       <div className="pl-4 flex-1 flex justify-between">
-        {item.productionQuantity}
+        {item.quantity || "-"}
         <span className="mr-8 text-2xl text-slate-600">{">"}</span>
       </div>
     </div>

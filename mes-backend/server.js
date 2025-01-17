@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const port = 8000;
 
@@ -9,6 +10,12 @@ const inspectionRoute = require("./routes/inspection.route");
 
 // Middleware
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  })
+);
 
 app.use("/production", productionRoute);
 app.use("/machine", machineRoute);
