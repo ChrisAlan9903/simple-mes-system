@@ -80,7 +80,8 @@ export function PieChartCard() {
               dataKey="visitors"
               nameKey="browser"
               innerRadius={60}
-              strokeWidth={5}
+              strokeWidth={1}
+              label
             >
               <Label
                 content={({ viewBox }) => {
@@ -104,7 +105,7 @@ export function PieChartCard() {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Visitors
+                          Total Productions
                         </tspan>
                       </text>
                     );
@@ -120,11 +121,11 @@ export function PieChartCard() {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 font-medium leading-none">
+        {/* <div className="flex items-center gap-2 font-medium leading-none">
           Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+        </div> */}
+        <div className="leading-none text-muted-foreground max-w-72 text-wrap">
+          Showing production distribution by status for total production.
         </div>
       </CardFooter>
     </Card>
