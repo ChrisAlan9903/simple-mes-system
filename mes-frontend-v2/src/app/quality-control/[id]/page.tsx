@@ -17,6 +17,7 @@ import {
   deleteOneInspection,
   getOneInspection,
 } from "@/services/inspection.service";
+import InspectionEditForm from "@/components/form-inspection-edit";
 
 const InspectionDetailPage = () => {
   const params = useParams();
@@ -143,7 +144,7 @@ const InspectionDetailPage = () => {
       </div>
       {openEditModal && (
         <BaseDialog>
-          <ProductionEditForm
+          <InspectionEditForm
             data={inspectionDetail}
             onClose={() => setOpenEditModal(false)}
             refreshListing={initInspectionDetail}

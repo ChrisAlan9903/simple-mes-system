@@ -46,7 +46,7 @@ export async function createOneInspection(body: any) {
     console.error(error);
   }
 }
-export async function updateOneInspection(id: number, body: any) {
+export async function updateOneInspection(id?: number, body?: any) {
   try {
     const headers: HeadersInit = new Headers();
     headers.set("Content-Type", "application/json");
