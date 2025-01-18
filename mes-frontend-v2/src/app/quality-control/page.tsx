@@ -10,8 +10,9 @@ import BaseDialog from "@/components/dialog";
 import ProductionForm from "@/components/form-production";
 import { Inspection } from "@/interface/inspection";
 import { getInspections } from "@/services/inspection.service";
+import InspectionForm from "@/components/form-inspection";
 
-const ProductionTrackingPage = () => {
+const QualityControlPage = () => {
   const router = useRouter();
 
   const header = [
@@ -45,7 +46,7 @@ const ProductionTrackingPage = () => {
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-full mb-12">
       <div className="text-3xl font-bold mt-5 mb-8">Quality Inspection</div>
       <div className="w-full flex justify-end mb-5">
         <BaseButton
@@ -67,7 +68,7 @@ const ProductionTrackingPage = () => {
         ))}
       {openModal && (
         <BaseDialog>
-          <ProductionForm
+          <InspectionForm
             onClose={() => setOpenModal(false)}
             refreshListing={initInspection}
           />
@@ -77,7 +78,7 @@ const ProductionTrackingPage = () => {
   );
 };
 
-export default ProductionTrackingPage;
+export default QualityControlPage;
 
 interface ListingHeaderProps {
   header: string[];
