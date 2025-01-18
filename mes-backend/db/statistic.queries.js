@@ -1,4 +1,4 @@
-const getProductionDistribution = ``;
+const getProductionDistribution = `SELECT status, COUNT(*) AS count FROM production_orders GROUP BY status;`;
 
 const getMachineUtilization = `SELECT AVG(utilization_rate) AS machine_utilization FROM machine_utilization;`;
 
