@@ -62,7 +62,7 @@ export async function updateOneProduction(id?: number, body?: any) {
     console.error(error);
   }
 }
-export async function deleteOneProduction(id: number) {
+export async function deleteOneProduction(id?: number) {
   try {
     const headers: HeadersInit = new Headers();
     headers.set("Content-Type", "application/json");

@@ -1,9 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import BaseButton from "@/app/components/base-button";
 import { Production } from "@/interface/production";
-import { getOneProduction } from "@/services/production.service";
+import {
+  deleteOneProduction,
+  getOneProduction,
+} from "@/services/production.service";
 import moment from "moment";
 import Link from "next/link";
 import BaseDialog from "@/components/dialog";
@@ -14,6 +17,7 @@ import ConfirmationBox from "@/components/form-confirmation";
 const ProductionTrackingDetailPage = () => {
   const params = useParams();
   const pageId = Array.isArray(params.id) ? params.id[0] : params.id;
+  const router = useRouter();
 
   const [productionDetail, setProductionDetail] = useState<Production>();
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
@@ -61,6 +65,13 @@ const ProductionTrackingDetailPage = () => {
 
   async function handleDelete() {
     console.log("id to delete", productionDetail?.id);
+    try {
+      const res = await deleteOneProduction(productionDetail?.id);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      router.push("/production-tracking");
+    }
   }
 
   useEffect(() => {
