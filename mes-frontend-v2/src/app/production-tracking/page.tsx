@@ -20,7 +20,7 @@ const ProductionTrackingPage = () => {
     "Production Quantity",
   ];
 
-  function handleRedirect(id: number) {
+  function handleRedirect(id?: number) {
     console.log("Redirect to production tracking detail page with id: ", id);
     router.push(`/production-tracking/${id}`);
   }
@@ -64,7 +64,10 @@ const ProductionTrackingPage = () => {
         ))}
       {openModal && (
         <BaseDialog>
-          <ProductionForm onClose={() => setOpenModal(false)} />
+          <ProductionForm
+            onClose={() => setOpenModal(false)}
+            refreshListing={initProduction}
+          />
         </BaseDialog>
       )}
     </div>
@@ -96,11 +99,11 @@ const ListingHeader = ({ header }: ListingHeaderProps) => {
 
 interface ListingItemProps {
   item: Production;
-  onClick: (id: number) => void;
+  onClick: (id: number | undefined) => void;
 }
 
 const ListingItem = ({ item, onClick }: ListingItemProps) => {
-  const mapProductionStatus = (status: string) => {
+  const mapProductionStatus = (status: string | undefined) => {
     switch (status) {
       case "planned":
         return (

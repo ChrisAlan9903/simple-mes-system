@@ -6,12 +6,16 @@ import { Production } from "@/interface/production";
 import { getOneProduction } from "@/services/production.service";
 import moment from "moment";
 import Link from "next/link";
+import BaseDialog from "@/components/dialog";
+import ProductionForm from "@/components/form-production";
+import ProductionEditForm from "@/components/form-production-edit";
 
 const ProductionTrackingDetailPage = () => {
   const params = useParams();
   const pageId = Array.isArray(params.id) ? params.id[0] : params.id;
 
   const [productionDetail, setProductionDetail] = useState<Production>();
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   function statusColor(status: string) {
     switch (status) {
@@ -101,17 +105,30 @@ const ProductionTrackingDetailPage = () => {
         </DetailItem>
       </div>
       <div className="flex justify-between w-[90%] sm:w-[70%] mx-auto mt-8">
-        <BaseButton style="filled" className="w-[40%] font-bold">
+        <BaseButton
+          onClick={() => setOpenModal(true)}
+          style="filled"
+          className="w-[40%] font-bold"
+        >
           Update Detail
         </BaseButton>
 
         <BaseButton
           style="outline"
-          className="w-[40%] border-red-600 text-red-600 font-bold"
+          className="w-[40%] border-red-600 text-red-600 font-bold hover:bg-red-500"
         >
           Delete Record
         </BaseButton>
       </div>
+      {openModal && (
+        <BaseDialog>
+          <ProductionEditForm
+            data={productionDetail}
+            onClose={() => setOpenModal(false)}
+            refreshListing={initProductionDetail}
+          />
+        </BaseDialog>
+      )}
     </div>
   );
 };
