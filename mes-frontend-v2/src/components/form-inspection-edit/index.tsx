@@ -178,9 +178,12 @@ const InspectionEditForm = ({
             Result
           </label>
           <select
+            disabled={status != "completed"}
             value={result}
             onChange={(e) => setResult(e.target.value)}
-            className="border-2 border-slate-400 rounded-sm h-8 px-2 focus:outline-blue-500"
+            className={`border-2 border-slate-400 rounded-sm h-8 px-2 focus:outline-blue-500 ${
+              status != "completed" ? "opacity-30 hover:cursor-not-allowed" : ""
+            }`}
           >
             <option value={"pass"}>Pass</option>
             <option value={"fail"}>Fail</option>
