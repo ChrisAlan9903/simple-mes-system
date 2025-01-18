@@ -154,11 +154,11 @@ const InspectionDetailPage = () => {
       {openDeleteConfirmation && (
         <BaseDialog>
           <ConfirmationBox
-            confirmText="Delete Production"
+            confirmText="Delete Inspection"
             onClose={() => setOpenDeleteConfirmation(false)}
             onConfirm={handleDelete}
           >
-            {" Are you sure to delete this production records?"}
+            {" Are you sure to delete this inspection records?"}
           </ConfirmationBox>
         </BaseDialog>
       )}
