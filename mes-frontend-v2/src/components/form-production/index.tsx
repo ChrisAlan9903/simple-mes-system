@@ -11,9 +11,12 @@ interface ProductionFormProps {
 const ProductionForm = ({ onClose }: ProductionFormProps) => {
   const [name, setName] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(0);
-  const [startDate, setStartDate] = useState<string>("2025-01-18T16:40");
-  const [expectedEndDate, setExpectedEndDate] =
-    useState<string>("2018-06-12T19:30");
+  const [startDate, setStartDate] = useState<string>(
+    moment().format("YYYY-MM-DDTH:mm")
+  );
+  const [expectedEndDate, setExpectedEndDate] = useState<string>(
+    moment().format("YYYY-MM-DDTH:mm")
+  );
   const [remarks, setRemarks] = useState<string>("");
 
   function addProduction() {
