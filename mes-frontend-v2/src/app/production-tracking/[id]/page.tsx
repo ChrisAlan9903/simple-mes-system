@@ -9,13 +9,16 @@ import Link from "next/link";
 import BaseDialog from "@/components/dialog";
 import ProductionForm from "@/components/form-production";
 import ProductionEditForm from "@/components/form-production-edit";
+import ConfirmationBox from "@/components/form-confirmation";
 
 const ProductionTrackingDetailPage = () => {
   const params = useParams();
   const pageId = Array.isArray(params.id) ? params.id[0] : params.id;
 
   const [productionDetail, setProductionDetail] = useState<Production>();
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+  const [openDeleteConfirmation, setOpenDeleteConfirmation] =
+    useState<boolean>(false);
 
   function statusColor(status: string) {
     switch (status) {
@@ -54,6 +57,10 @@ const ProductionTrackingDetailPage = () => {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  async function handleDelete() {
+    console.log("id to delete", productionDetail?.id);
   }
 
   useEffect(() => {
@@ -106,7 +113,7 @@ const ProductionTrackingDetailPage = () => {
       </div>
       <div className="flex justify-between w-[90%] sm:w-[70%] mx-auto mt-8">
         <BaseButton
-          onClick={() => setOpenModal(true)}
+          onClick={() => setOpenEditModal(true)}
           style="filled"
           className="w-[40%] font-bold"
         >
@@ -114,19 +121,31 @@ const ProductionTrackingDetailPage = () => {
         </BaseButton>
 
         <BaseButton
+          onClick={() => setOpenDeleteConfirmation(true)}
           style="outline"
           className="w-[40%] border-red-600 text-red-600 font-bold hover:bg-red-500"
         >
           Delete Record
         </BaseButton>
       </div>
-      {openModal && (
+      {openEditModal && (
         <BaseDialog>
           <ProductionEditForm
             data={productionDetail}
-            onClose={() => setOpenModal(false)}
+            onClose={() => setOpenEditModal(false)}
             refreshListing={initProductionDetail}
           />
+        </BaseDialog>
+      )}
+      {openDeleteConfirmation && (
+        <BaseDialog>
+          <ConfirmationBox
+            confirmText="Delete Production"
+            onClose={() => setOpenDeleteConfirmation(false)}
+            onConfirm={handleDelete}
+          >
+            {" Are you sure to delete this production records?"}
+          </ConfirmationBox>
         </BaseDialog>
       )}
     </div>
