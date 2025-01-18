@@ -4,6 +4,8 @@ import React from "react";
 import { PieChartCard } from "../components/piechart";
 import MachineUtilizationCard from "../components/machine-utilization-card";
 import DefectRateCard from "../components/defect-rate-card";
+import BaseDialog from "@/components/dialog";
+import ProductionForm from "@/components/form-production";
 
 const DashboardPage = () => {
   return (

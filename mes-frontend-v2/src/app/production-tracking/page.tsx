@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { Production } from "@/interface/production";
 import { getProductions } from "@/services/production.service";
 import moment from "moment";
+import BaseDialog from "@/components/dialog";
+import ProductionForm from "@/components/form-production";
 
 const ProductionTrackingPage = () => {
   const router = useRouter();
@@ -24,6 +26,7 @@ const ProductionTrackingPage = () => {
   }
 
   const [production, setProduction] = useState<Production[]>();
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   async function initProduction() {
     try {
@@ -44,7 +47,7 @@ const ProductionTrackingPage = () => {
       <div className="w-full flex justify-end mb-5">
         <BaseButton
           onClick={() => {
-            console.log("Button clickedd !!");
+            setOpenModal(true);
           }}
         >
           + New Production
@@ -59,6 +62,11 @@ const ProductionTrackingPage = () => {
             onClick={(id) => handleRedirect(id)}
           />
         ))}
+      {openModal && (
+        <BaseDialog>
+          <ProductionForm onClose={() => setOpenModal(false)} />
+        </BaseDialog>
+      )}
     </div>
   );
 };

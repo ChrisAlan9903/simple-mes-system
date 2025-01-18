@@ -1,7 +1,7 @@
 import moment from "moment";
 
 export interface ProductionResponse {
-  id: number;
+  id?: number;
   product_name: string;
   quantity: number;
   start_date: string | null;
@@ -22,17 +22,17 @@ export interface Production {
   remarks: string;
 }
 
-export const ToProductionSchema = (
-  response: ProductionResponse
-): Production => {
-  return {
-    id: response.id,
-    product_name: response.product_name,
-    quantity: response.quantity,
-    start_date: moment(response.start_date).toDate(),
-    expected_end_date: moment(response.start_date).toDate(),
-    actual_end_date: moment(response.start_date).toDate(),
-    status: response.status,
-    remarks: response.remarks,
-  };
-};
+// export const ToProductionSchema = (
+//   response: ProductionResponse
+// ): Production => {
+//   return {
+//     id: response.id || null,
+//     product_name: response.product_name,
+//     quantity: response.quantity,
+//     start_date: moment(response.start_date).toDate(),
+//     expected_end_date: moment(response.start_date).toDate(),
+//     actual_end_date: moment(response.start_date).toDate(),
+//     status: response.status,
+//     remarks: response.remarks,
+//   };
+// };

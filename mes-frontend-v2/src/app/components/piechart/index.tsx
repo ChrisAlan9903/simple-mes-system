@@ -113,9 +113,10 @@ export function PieChartCard() {
                 }}
               />
             </Pie>
+
             <ChartLegend
               content={<ChartLegendContent nameKey="browser" />}
-              className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
+              className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center mt-1"
             />
           </PieChart>
         </ChartContainer>
