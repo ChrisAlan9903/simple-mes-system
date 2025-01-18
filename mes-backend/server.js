@@ -7,6 +7,7 @@ const port = 8000;
 const productionRoute = require("./routes/production.route");
 const machineRoute = require("./routes/machine.route");
 const inspectionRoute = require("./routes/inspection.route");
+const statisticRoute = require("./routes/statistic.route");
 
 // Middleware
 app.use(express.json());
@@ -20,6 +21,7 @@ app.use(
 app.use("/productions", productionRoute);
 app.use("/machines", machineRoute);
 app.use("/inspections", inspectionRoute);
+app.use("/statistics", statisticRoute);
 
 app.get("/", (req, res) => {
   res.status(200).send("Health OK");
