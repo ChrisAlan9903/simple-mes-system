@@ -6,7 +6,12 @@ function getProductDistribution(req, res) {
     if (error) {
       throw error;
     }
-    res.status(200).json(results.rows);
+
+    const formattedRows = results.rows.map((row) => ({
+      status: row.status,
+      count: parseInt(row.count, 10),
+    }));
+    res.status(200).json(formattedRows);
   });
 }
 
