@@ -21,7 +21,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { ProductionStatusData } from "@/interface/dashboard";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 // const chartData = [
 //   { status: "planned", count: 275, color: "#2563eb" },
 //   { status: "in_progress", count: 200, color: "#fb923c" },
@@ -38,6 +38,7 @@ interface PieChartCardProps {
 export function PieChartCard({ data }: PieChartCardProps) {
   const [chartData, setChartData] =
     useState<{ status: string; count: number; colour: string }[]>();
+  const [totalProduction, setTotalProduction] = useState<number>(0);
   const totalVisitors = React.useMemo(() => {
     return data.reduce((acc, curr) => acc + curr.count, 0);
   }, []);
@@ -83,6 +84,12 @@ export function PieChartCard({ data }: PieChartCardProps) {
     if (data) {
       const newData = convertedChartData(data);
       setChartData(newData);
+
+      const totalProd = () => {
+        return data.reduce((acc, curr) => acc + curr.count, 0);
+      };
+
+      setTotalProduction(totalProd);
     }
   }, [data]);
 
@@ -124,7 +131,7 @@ export function PieChartCard({ data }: PieChartCardProps) {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {totalProduction.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
