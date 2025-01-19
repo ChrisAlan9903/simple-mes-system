@@ -85,7 +85,7 @@ const InspectionEditForm = ({
   return (
     <div className="max-w-[50vw]  bg-slate-50 p-3 rounded-lg overflow-auto">
       <div className="flex justify-between mb-4">
-        <h2 className="text-xl font-semibold">Schedule New Inspection</h2>
+        <h2 className="text-xl font-semibold">Update Inspection Details</h2>
         <span
           onClick={onClose}
           className="px-3 py-1  rounded-full bg-slate-300 text-center text-sm hover:cursor-pointer hover:text-slate-50"
@@ -143,12 +143,15 @@ const InspectionEditForm = ({
             Defect Quantity:
           </label>
           <input
+            disabled={status != "completed"}
             type="number"
             value={defect}
             min={0}
             max={productions?.find((item) => item.id == productId)?.quantity}
             onChange={(e) => setDefect(parseInt(e.target.value))}
-            className="border-2 border-slate-400 rounded-sm h-8 px-2 focus:outline-blue-500"
+            className={`border-2 border-slate-400 rounded-sm h-8 px-2 focus:outline-blue-500 ${
+              status != "completed" ? "opacity-30 hover:cursor-not-allowed" : ""
+            }`}
           />
         </div>
         <div className="flex flex-col flex-1">
@@ -203,7 +206,7 @@ const InspectionEditForm = ({
           <BaseButton onClick={onClose} style="outline">
             Cancel
           </BaseButton>
-          <BaseButton type={"submit"}>Schedule Inspection</BaseButton>
+          <BaseButton type={"submit"}>Update Inspection</BaseButton>
         </div>
       </form>
     </div>

@@ -7,7 +7,7 @@ interface DefectRateCardProps {
 }
 const DefectRateCard = ({ data }: DefectRateCardProps) => {
   function convertToStringPercentage(data: number) {
-    return (data * 100).toString();
+    return (data * 100).toFixed(1).toString();
   }
 
   return (
@@ -17,7 +17,7 @@ const DefectRateCard = ({ data }: DefectRateCardProps) => {
         footerText={<CardFooterText />}
       >
         <div className="flex items-center justify-center gap-2 font-medium leading-none h-full w-64 text-red-400">
-          <div className="text-9xl ">
+          <div className="text-7xl ">
             {convertToStringPercentage(data?.defect_rate) || "0"}
           </div>
           <div className="flex items-baseline ">

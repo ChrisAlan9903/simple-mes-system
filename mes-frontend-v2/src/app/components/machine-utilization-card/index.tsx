@@ -7,7 +7,7 @@ interface MachineUtilizationCardProps {
 }
 const MachineUtilizationCard = ({ data }: MachineUtilizationCardProps) => {
   function convertToStringPercentage(data: number) {
-    return (data * 100).toString();
+    return (data * 100).toFixed(1).toString();
   }
   return (
     <div>
@@ -16,7 +16,7 @@ const MachineUtilizationCard = ({ data }: MachineUtilizationCardProps) => {
         footerText={<CardFooterText />}
       >
         <div className="flex items-center justify-center gap-2 font-medium leading-none h-full w-64 text-blue-800">
-          <div className="text-9xl ">
+          <div className="text-7xl ">
             {convertToStringPercentage(data?.machine_utilization) || "0"}
           </div>
           <div className="flex items-baseline ">
