@@ -8,3 +8,5 @@ This project is configured and uses NextJS for frontend, Express JS for backend,
 3. Open terminal and change directory to `/mes-backend`. Run `npm install`, and run `npm run dev` to start the server. If user has nodemon installed, user can replace `npm run dev` with `npm run nodemon` instead to benefit nodemon functionality.
 4. Open another terminal and change directory to `/mes-frontend-v2`. Run `npm install`, and run `npm run dev` to start the server.
 5. The backend server will run on port 8000, and frontend will run on port 3000
+6. add a `.env.local` file to the frontend root folder and update the file accordingly as shown below:
+   ![alt text](image-1.png)
